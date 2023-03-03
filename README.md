@@ -5,7 +5,13 @@
   
 <h1><p align="center">Currently Using</p></h1>
 <ul>
-  <li>test  </li>
+  <li>Compositor - <a href="#">Picom</a></li>
+  <li>WM - <a href="#">i3-gaps</a></li>
+  <li>IDE - <a href="#">Neovim</a></li>
+  <li>Terminal - <a href="#">XFCE</a></li>
+  <li><a href="#">Rofi</a></li>
+  <li><a href="#">Polybar</a></li>
+  <li><a href="#">Fish</a></li>
 </ul>
   
 
