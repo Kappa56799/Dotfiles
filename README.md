@@ -10,7 +10,6 @@
   <li>IDE - <a href="https://github.com/neovim/neovim">Neovim</a></li>
   <li>Terminal - <a href="https://github.com/xfce-mirror/xfce4-terminal">XFCE</a></li>
   <li><a href="https://github.com/davatorium/rofi">Rofi</a></li>
-  <li><a href="https://github.com/polybar/polybar">Polybar</a></li>
   <li><a href="https://github.com/fish-shell/fish-shell">Fish</a></li>
   <li><a href="https://github.com/oh-my-fish/oh-my-fish">Oh-My-Fish</a></li>
 </ul>
