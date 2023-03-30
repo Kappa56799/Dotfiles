@@ -5,6 +5,7 @@ set nocompatible               " be iMproved
 "  ---------------------------------------------------------------------------
 
 call plug#begin('~/.vim/plugged')
+Plug 'dense-analysis/ale'
 
 " Color schemes
 Plug 'rainux/vim-desert-warm-256'
@@ -48,6 +49,8 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 "Plug 'tpope/vim-sexp-mappings-for-regular-people'
 "Plug 'vim-scripts/paredit.vim'
+"
+
 
 " Evaluate Clojure buffers on load
 autocmd BufRead *.clj try | silent! Require | catch /^Fireplace/ | endtry
@@ -144,7 +147,6 @@ set regexpengine=0
 "  ---------------------------------------------------------------------------
 "  Text Formatting
 "  ---------------------------------------------------------------------------
-
 set tabstop=20
 set shiftwidth=2
 set softtabstop=2
@@ -190,7 +192,7 @@ set statusline+=\ [line\ %l\/%L]
 
 " Colour
 hi StatusLine ctermfg=Black ctermbg=White
-hi StatusLineNC ctermfg=Black ctermbg=Grey
+hi StatusLineNC ctermfg=Black ctermbg=White
 
 " Change colour of statusline in insert mode
 "au InsertEnter * hi StatusLine ctermbg=DarkBlue

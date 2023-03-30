@@ -37,8 +37,8 @@ exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
@@ -65,9 +65,6 @@ exec --no-startup-id nitrogen --restore
 
 #picom auto start
 exec --no-startup-id picom -b
-
-#polybar start
-exec --no-startup-id polybar
 
 #Change keyboard to UK english
 exec "setxkbmap -layout gb"
@@ -119,6 +116,9 @@ bindsym Mod1+Shift+Down move down
 bindsym Mod1+Shift+Up move up
 bindsym Mod1+Shift+Right move right
 
+# cycle through workspaces
+bindsym Mod4+Tab workspace next
+
 # split in horizontal orientation
 bindsym Mod1+Down split h
 
@@ -145,11 +145,11 @@ bindsym Mod1+a focus parent
 #bindsym Mod1+d focus child
 
 # move the currently focused window to the scratchpad
-bindsym Mod1+Shift+minus move scratchpad
+#bindsym Mod1+Shift+minus move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym Mod1+minus scratchpad show
+#bindsym Mod1+minus scratchpad show
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -224,12 +224,26 @@ bindsym Mod1+Shift+x exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-#bar {
- #       status_command i3status
-  #      mode hide
-   #     hidden_state hide
-#
-#}
+bar {
+  padding 3px
+  font pango:roboto 11
+  position top
+  status_command i3status
+  tray_output none
+  workspace_min_width 25
+
+  colors {
+    statusline #949494
+    separator #4e4e4e
+    background #2B292C
+    focused_workspace  #2B292C #434045 #ffffff
+    inactive_workspace #2B292C #2B292C #ffffff
+
+  }
+
+
+
+}
 #######################################################################
 # automatically start i3-config-wizard to offer the user to create a
 # keysym-based config which used their favorite modifier (alt or windows)
