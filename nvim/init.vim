@@ -7,27 +7,10 @@ set nocompatible               " be iMproved
 call plug#begin('~/.vim/plugged')
 Plug 'dense-analysis/ale'
 
-" Color schemes
-Plug 'rainux/vim-desert-warm-256'
-
-"
-" " Utility
-Plug 'tpope/vim-surround'
-Plug 'Townk/vim-autoclose'
-Plug 'tomtom/tcomment_vim'
-"Plug 'vim-scripts/ZoomWin'
-Plug 'airblade/vim-rooter'
-" Plug 'vim-scripts/YankRing.vim'
-"Plug 'nathanaelkane/vim-indent-guides'
-"Plug 'godlygeek/tabular'
-" Plug 'zerowidth/vim-copy-as-rtf' "Mac only
-"
-Plug 'mileszs/ack.vim'
-
-Plug 'Quramy/tsuquyomi'
-
+" Themes
 Plug 'loctvl842/monokai-pro.nvim'
-
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " " Clojure
 Plug 'Olical/conjure'
 Plug 'tpope/vim-dispatch'
@@ -35,22 +18,8 @@ Plug 'clojure-vim/vim-jack-in'
 " Only in Neovim:
 Plug 'radenling/vim-dispatch-neovim'
 
-" Plug 'dense-analysis/ale'
-
-" Plug 'neovim/node-host' | Plug 'snoe/nvim-parinfer.js'
-" Plug 'kovisoft/paredit', { 'for': ['clojure', 'clojurescript', 'scheme'] }
-" Plug 'cemerick/piggieback' | Plug 'tpope/vim-fireplace'
-" Plug 'tpope/vim-fireplace'
-"Plug 'guns/vim-clojure-static'
-"Plug 'guns/vim-clojure-highlight'
-" Plug 'kien/rainbow_parentheses.vim'
-" Plug 'guns/vim-sexp'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-"Plug 'tpope/vim-sexp-mappings-for-regular-people'
-"Plug 'vim-scripts/paredit.vim'
-"
-
 
 " Evaluate Clojure buffers on load
 autocmd BufRead *.clj try | silent! Require | catch /^Fireplace/ | endtry
@@ -174,30 +143,37 @@ set tildeop
 "  ---------------------------------------------------------------------------
 "  Status Line
 "  ---------------------------------------------------------------------------
+let g:airline_theme='base16'
+let g:airline_powerline_fonts = 1
 
-" path
-set statusline+=%f
-" flags
-set statusline+=%m%r%h%w
-" git branch
-set statusline+=\ %{fugitive#statusline()}
-" encoding
-set statusline+=\ [%{strlen(&fenc)?&fenc:&enc}]
-" rvm
-if exists("$rvm_path")
-  set statusline+=\ %{rvm#statusline()}
-end
-" line x of y
-set statusline+=\ [line\ %l\/%L]
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
 
-" Colour
-hi StatusLine ctermfg=Black ctermbg=White
-hi StatusLineNC ctermfg=Black ctermbg=White
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = ' '
 
-" Change colour of statusline in insert mode
-"au InsertEnter * hi StatusLine ctermbg=DarkBlue
-"au InsertLeave * hi StatusLine ctermfg=Black ctermbg=White
-
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ' '
+let g:airline_section_z = "%p%% %l/%L Col:%c"
+let g:airline#extensions#whitespace#enabled = 0
 
 "  ---------------------------------------------------------------------------
 "  Mappings
@@ -213,7 +189,6 @@ set ignorecase
 set smartcase
 set incsearch
 set showmatch
-" set nohlsearch
 
 hi Search ctermfg=NONE ctermbg=NONE cterm=underline
 
@@ -226,22 +201,14 @@ nmap <space> /
 map <c-space> ?
 
 " Center screen when scrolling search results
+
+
 nmap n nzz
 nmap N Nzz
 
 
 nnoremap j gj
 nnoremap k gk
-
-" To search in files (,a) we can use ag or ack
-
-nnoremap <leader>a :Ack! 
-nnoremap <leader>aa :Ack! <cword><CR>
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-end
-
-" Ack settings: https://github.com/krisleech/vimfiles/wiki/Make-ack-ignore-files
 
 " Auto format
 map === gg=G`.zz
@@ -257,6 +224,11 @@ tnoremap <C-h> <C-\><C-n><C-w>h
 tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-l> <C-\><C-n><C-w>l
+
+nnoremap <C-y> "+y
+vnoremap <C-y> "+y
+nnoremap <C-p> "+gP
+vnoremap <C-p> "+gP
 
 " autocomplete with tab
 inoremap <tab> <c-p>
@@ -286,48 +258,10 @@ nmap <leader>q :wqa!<CR>
 nmap <leader>w :w!<CR>
 nmap <leader><Esc> :q!<CR>
 
-" CTAGS aka autocomplete
-" Includes all gems in RVM gemset, excludes Javascript and HTML
-"map <leader>rt :!ctags --sort=yes --extra=+f --languages=-javascript --exclude=.git --exclude=log --exclude=db --exclude=public --exclude=alfresco -R * `rvm gemdir`/gems/* `rvm gemdir`/bundler/gems/*<CR><C-M>
-
-map <leader>rt :call VimuxRunCommand("clear;ctags --sort=yes --extra=+f --languages=-javascript --exclude=.git --exclude=log --exclude=db --exclude=public --exclude=alfresco -R * `rvm gemdir`/gems/* `rvm gemdir`/bundler/gems/* &")<CR>
-
-
 "  ---------------------------------------------------------------------------
 "  Function Keys
 "  ---------------------------------------------------------------------------
-
-"  ---------------------------------------------------------------------------
-"  Plugins
-"  ---------------------------------------------------------------------------
-
-" neocomplcache
-
-" if !exists('g:neocomplcache_omni_patterns')
-"   let g:neocomplcache_omni_patterns = {}
-" endif
-" let g:neocomplcache_enable_at_startup = 1
-" let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
-" Ctrlp
-" map <leader>b :CtrlPBuffer<CR>
-" let g:ctrlp_map = ',f'
-" let g:ctrlp_cmd = 'CtrlP'
-" let g:ctrlp_match_window_reversed = 0
-" let g:ctrlp_use_caching = 1
-" let g:ctrlp_clear_cache_on_exit = 0
-" let g:ctrlp_cache_dir = '/tmp/ctrlp'
-
-" Tabular
-
-" align by comma
 map <leader>tc :Tabularize /,\zs<CR>
-
-" FZF (Fuzzy search)
-" https://github.com/junegunn/fzf.vim
-nmap <leader>f :GitFiles<CR>
-nmap <leader>b :Buffers<CR>
-
 
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
@@ -343,16 +277,6 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " ZoomWin (toggle split to full screen)
 map <leader>z :ZoomWin<CR>
 
-" NERDTree
-map <leader>p :NERDTreeToggle<cr>
-let NERDTreeShowBookmarks = 0
-let NERDChristmasTree = 1
-let NERDTreeWinPos = "left"
-let NERDTreeHijackNetrw = 1
-let NERDTreeQuitOnOpen = 1
-let NERDTreeWinSize = 50 
-let NERDTreeChDirMode = 2
-let NERDTreeDirArrows = 1
 
 " Use only current file to autocomplete from tags
 set complete=.,w,b,u,t,i
@@ -363,9 +287,6 @@ let g:AutoCloseProtectedRegions = ["Character"]
 
 let my_home = expand("$HOME/")
 
-if filereadable(my_home . '.vim/bundle/vim-autocorrect/autocorrect.vim')
-  source ~/.vim/bundle/vim-autocorrect/autocorrect.vim
-endif
 
 " Easy commenting
 nnoremap // :TComment<CR>
@@ -373,12 +294,6 @@ vnoremap // :TComment<CR>
 
 " Supertab
 let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
-
-" YankRing
-let g:yankring_history_dir = '/tmp'
-" Prevent "clipboard: error: Error: target STRING not available" on startup
-" https://github.com/neovim/neovim/issues/2642
-let g:yankring_clipboard_monitor=0
 
 " Fugitive
 
