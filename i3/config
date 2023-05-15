@@ -54,7 +54,7 @@ set $left j
 set $right semicolon
 
 #Gaps for windows
-gaps inner 5
+gaps inner 2
 
 #Hiding window titlebar
 default_border pixel 0

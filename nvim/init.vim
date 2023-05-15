@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'dense-analysis/ale'
 
 " Themes
+Plug 'github/copilot.vim'
 Plug 'loctvl842/monokai-pro.nvim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
