@@ -1,7 +1,11 @@
 <h1><p align="center">Dotfiles</p></h1>
 
-![ArchLinux](https://user-images.githubusercontent.com/114831362/222737604-8c16f227-f977-40a3-875c-34835bf05d4e.png)
-![Nvim](https://user-images.githubusercontent.com/114831362/222738215-803618b4-660e-4e6c-8a33-4d4d378a157d.png)
+![desktop](https://github.com/Kappa56799/Dotfiles/assets/114831362/7ea4e985-0134-482c-9db5-edc0ae857b63)
+
+![terminal](https://github.com/Kappa56799/Dotfiles/assets/114831362/b15e146b-5f4e-4803-aa94-180353c2f1d5)
+![terminal2](https://github.com/Kappa56799/Dotfiles/assets/114831362/38b60355-343c-427e-9a47-d5bfcc6a6637)
+![rofi](https://github.com/Kappa56799/Dotfiles/assets/114831362/0052737a-3305-45f0-9fa5-34e09255c841)
+
   
 <h1><p align="center">Currently Using Arch Linux and the Following:</p></h1>
 <ul>
