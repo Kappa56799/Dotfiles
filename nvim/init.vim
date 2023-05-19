@@ -5,25 +5,19 @@ set nocompatible               " be iMproved
 "  ---------------------------------------------------------------------------
 
 call plug#begin('~/.vim/plugged')
-Plug 'dense-analysis/ale'
-
 " Themes
 Plug 'github/copilot.vim'
 Plug 'loctvl842/monokai-pro.nvim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" " Clojure
-Plug 'Olical/conjure'
-Plug 'tpope/vim-dispatch'
-Plug 'clojure-vim/vim-jack-in'
+Plug 'dense-analysis/ale'
+
 " Only in Neovim:
 Plug 'radenling/vim-dispatch-neovim'
 
+" For brackets etc
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-
-" Evaluate Clojure buffers on load
-autocmd BufRead *.clj try | silent! Require | catch /^Fireplace/ | endtry
 
 " Rails
 " Plug 'tpope/vim-rails', { 'for': 'ruby' }
@@ -36,14 +30,11 @@ Plug 'tpope/vim-endwise', { 'for': ['ruby', 'lua'] }
 Plug 'kana/vim-textobj-user' | Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
 Plug 'lucapette/vim-ruby-doc', { 'for': 'ruby' }
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'eruby'] }
-" Plug 'Keithbsmiley/rspec.vim', { 'for': ['ruby'] }
-
-" Crystal
-"Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
 
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'github/copilot.vim'
 
 call plug#end()
 
@@ -83,7 +74,6 @@ set wildmode=list:longest
 set visualbell
 set cursorline
 set ttyfast
-"set lazyredraw
 set ruler
 set backspace=indent,eol,start
 set laststatus=2
@@ -202,18 +192,14 @@ nmap <space> /
 map <c-space> ?
 
 " Center screen when scrolling search results
-
-
 nmap n nzz
 nmap N Nzz
-
 
 nnoremap j gj
 nnoremap k gk
 
 " Auto format
 map === gg=G`.zz
-
 
 " Move between splits
 nnoremap <C-h> <C-w>h
@@ -288,7 +274,6 @@ let g:AutoCloseProtectedRegions = ["Character"]
 
 let my_home = expand("$HOME/")
 
-
 " Easy commenting
 nnoremap // :TComment<CR>
 vnoremap // :TComment<CR>
@@ -304,16 +289,6 @@ nmap <leader>gc :Gcommit<CR>i
 " GitGutter
 
 let g:gitgutter_map_keys = 0
-
-" Clojure
-
-" surround form `()` in another form `()` and enter insert mode at the opening
-" of the form.
-" (:foo params) => ((:foo params))
-"nmap s( ysa))a
-
-" as above but insert at the end of the form
-"nmap s) ysa))%i
 
 "  ---------------------------------------------------------------------------
 "  Ruby/Rails
